@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>MY TITLE</title>
+  </head>
+  <body>
+    <div>
+      <form id="inputForm" action="/" method="GET">
+        <label
+          >Please enter comma separated numbers below:
+          <input
+            type="text"
+            class="input"
+            id="inputX"
+            name="inputX"
+            placeholder="X Axis"
+          />
+          <input
+            type="text"
+            class="input"
+            id="inputY"
+            name="inputY"
+            placeholder="Y Axis"
+          />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div class="plane-container" id="planeContainer">
+      <div class="cartesian-plane" id="cartesianPlane">
+        <div class="x-axis" id="xAxis"></div>
+        <div class="y-axis" id="yAxis"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

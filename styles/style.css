@@ -1,0 +1,39 @@
+:root {
+  --cartesianX: 800px;
+  --cartesianY: 800px;
+}
+
+.plane-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.cartesian-plane {
+  position: relative;
+  width: var(--cartesianX);
+  height: var(--cartesianY);
+  border: 2px solid black;
+}
+
+.point {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #f00;
+  border-radius: 50%;
+}
+
+.x-axis {
+  position: relative;
+  top: calc(var(--cartesianX) / 2);
+  border: 0.5px solid black;
+}
+
+.y-axis {
+  position: relative;
+  top: calc((var(--cartesianY) / 2) - 2px);
+  transform: rotate(90deg);
+  border: 0.5px solid black;
+}
