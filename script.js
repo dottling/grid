@@ -2,10 +2,14 @@ const root = document.querySelector(':root');
 const cartesianPlane = document.getElementById('cartesianPlane');
 const inputForm = document.getElementById('inputForm');
 
+
+const cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
+
+console.log(cartesianPlaneRect);
 const zeroPlaneX =
-  parseFloat(getComputedStyle(root).getPropertyValue('--cartesianX')) / 2 + 2;
+  parseFloat(cartesianPlaneRect.height)/2;
 const zeroPlaneY =
-  parseFloat(getComputedStyle(root).getPropertyValue('--cartesianY')) / 2 + 2;
+  parseFloat(cartesianPlaneRect.width)/2;
 const pointsArray = [];
 const dataArray = [];
 
