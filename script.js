@@ -36,6 +36,7 @@ const getData = function (event) {
   };
 
   dataArray.push(data);
+  console.log(dataArray);
 
   for (let i = 0; i < inputX.length; i++) {
     const point = document.createElement('div');
@@ -70,6 +71,7 @@ function addPoint(event) {
   };
 
   dataArray.push(data);
+  console.log(dataArray);
   console.log(`coordinates: (${findCoordinates(x, y)})`);
 }
 
