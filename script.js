@@ -5,7 +5,6 @@ const inputForm = document.getElementById('inputForm');
 
 const cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
 
-console.log(cartesianPlaneRect);
 const zeroPlaneX =
   parseFloat(cartesianPlaneRect.height)/2;
 const zeroPlaneY =
