@@ -1,19 +1,21 @@
 :root {
-  --cartesianX: 800px;
-  --cartesianY: 800px;
+  --cartesianX: 50rem;
+  --cartesianY: 50rem;
 }
 
 .plane-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .cartesian-plane {
+  margin: 1rem;
   position: relative;
-  width: var(--cartesianX);
+  /* width: 100%; */
   height: var(--cartesianY);
+  aspect-ratio: 1;
   border: 2px solid black;
 }
 
