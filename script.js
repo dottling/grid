@@ -2,10 +2,9 @@ const root = document.querySelector(':root');
 const cartesianPlane = document.getElementById('cartesianPlane');
 const inputForm = document.getElementById('inputForm');
 
-const cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
+let cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
 
-const zeroPlaneX = parseFloat(cartesianPlaneRect.height) / 2;
-const zeroPlaneY = parseFloat(cartesianPlaneRect.width) / 2;
+
 
 // Array that holds all data points that the user provided (both as a click or form)
 // Each entry is an object that holds 2 arrays (dataX and dataY)
@@ -14,13 +13,7 @@ const zeroPlaneY = parseFloat(cartesianPlaneRect.width) / 2;
 const dataArray = [];
 
 // Find coordinates based on their position on the cartesian plane
-const findCoordinates = function (x, y) {
-  xa = parseFloat(((x - zeroPlaneX) / 20).toFixed(2));
-  ya = parseFloat(((zeroPlaneY - y) / 20).toFixed(2));
 
-  coordinates = [xa, ya];
-  return coordinates;
-};
 
 // Add X, Y points to the plane after submitting the form.
 // Also save the points on dataArray
@@ -38,6 +31,8 @@ const getData = function (event) {
   dataArray.push(data);
   console.log(dataArray);
 
+
+  // replace this section with new function for adding point to plane //;
   for (let i = 0; i < inputX.length; i++) {
     const point = document.createElement('div');
     point.classList.add('point');
@@ -50,8 +45,11 @@ const getData = function (event) {
   }
 };
 
+
+// !!!!!! REPLACE WITH ADDING POINT TO CANVAS !!!!!!! //
 // Add a point to the Cartesian plane on click and console.log coordinates
 // Also save the points on dataArray
+/*
 function addPoint(event) {
   const point = document.createElement('div');
   point.classList.add('point');
@@ -75,7 +73,16 @@ function addPoint(event) {
   console.log(`coordinates: (${findCoordinates(x, y)})`);
 }
 
-// Attach click event listener to the Cartesian plane
-cartesianPlane.addEventListener('click', addPoint);
+*/
 // Attach submit event listener to the form button
 inputForm.addEventListener('submit', getData);
+
+// Attach click event listener to the Cartesian plane
+// cartesianPlane.addEventListener('click', addPoint); //old version
+cartesianPlane.addEventListener('click', (event) =>{
+
+  // const xa = (event.layerX-yPlane)/gridScale;
+  // const ya = (xPlane-event.layerY)/gridScale;
+  addPixelPoint(event.layerX,event.layerY);
+
+})
