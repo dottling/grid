@@ -79,4 +79,3 @@ function addPoint(event) {
 cartesianPlane.addEventListener('click', addPoint);
 // Attach submit event listener to the form button
 inputForm.addEventListener('submit', getData);
-// Random Comment
