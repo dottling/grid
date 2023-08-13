@@ -10,7 +10,6 @@ let yPlane = canvas.width/2;
 
 //on Init
 resizeCanvas(cartesianPlaneRect.width,cartesianPlaneRect.height);
-console.log(cartesianPlaneRect);
 
 //Utility functions
 
@@ -32,6 +31,7 @@ function getCanvasSize(domWidth,domHeight){
 
 //Receives the RectSize (which includes the border).
 function resizeCanvas(width,height){
+    clearCanvas();
     //removes the borders from the size given
     const actualSize = getCanvasSize(width,height);
     canvas.width = actualSize[0];
@@ -42,8 +42,9 @@ function resizeCanvas(width,height){
     yPlane = canvas.width/2;
 
     drawGrid();
-    
     drawXYPlanes();
+    drawDigits();
+
 }
 
 function drawXYPlanes(){
@@ -57,6 +58,7 @@ function drawXYPlanes(){
     ctx.lineTo(yPlane,canvas.height);
 
     ctx.stroke();
+    ctx.closePath();
 }
 
 function drawGrid(){
@@ -69,11 +71,21 @@ function drawGrid(){
         ctx.lineTo(canvas.width, i*gridScale);
     }
     ctx.stroke();
+    ctx.closePath();
 
 }
 
 function drawDigits(){
-    //TODO
+    ctx.beginPath();
+    ctx.fillStyle = "#777";
+    for( let i= -gridScale; i<=gridScale ; i++){
+        const pos = findPixel(0,i);
+        //+2 and -2 are offsets, could be replaced with variables;
+        ctx.fillText(`${i}`,pos[1]+2,pos[0]-2);
+        ctx.fillText(`${i}`,pos[0]+2,pos[1]-2);
+    }
+    ctx.closePath();
+    
 }
 
 function addPixelPoint(x,y){
@@ -83,19 +95,31 @@ function addPixelPoint(x,y){
     ctx.arc(x, y, dotRadius, 0, 2 * Math.PI,false);
     ctx.fillStyle = '#f00'; //hex Red
     ctx.fill();
+    ctx.closePath();
 }
 
 function addValuePoint(x,y){
-    const xa = x*gridScale + yPlane;
-    const ya = -y*gridScale + xPlane;
+    const coords = findPixel(x,y)
 
-    addPixelPoint(xa,ya);
+    addPixelPoint(coords[0],coords[1]);
 }
 
-const findCoordinates = function (x, y) {
+function findCoordinates(x, y) {
     xa = parseFloat(((x - yPlane) / gridScale).toFixed(2));
     ya = parseFloat(((xPlane - y) / gridScale).toFixed(2));
     coordinates = [xa, ya];
     return coordinates;
   };
 
+function findPixel (x,y){
+    const xa = x*gridScale + yPlane;
+    const ya = -y*gridScale + xPlane;
+
+    return [xa,ya];
+}
+
+function clearCanvas(){
+    ctx.beginPath();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.closePath();
+}
