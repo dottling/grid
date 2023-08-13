@@ -34,14 +34,17 @@ const getData = function (event) {
 
   // replace this section with new function for adding point to plane //;
   for (let i = 0; i < inputX.length; i++) {
-    const point = document.createElement('div');
-    point.classList.add('point');
-    let x = parseFloat(inputX[i]) * 20 + zeroPlaneX;
-    let y = -parseFloat(inputY[i]) * 20 + zeroPlaneY;
+
+    // const point = document.createElement('div');
+    // point.classList.add('point');
+    const x = parseFloat(inputX[i]);
+    const y = parseFloat(inputY[i]);
+
+    addValuePoint(x,y);
     // console.log(x, y);
-    point.style.left = `${x - 4}px`;
-    point.style.top = `${y - 4}px`;
-    cartesianPlane.appendChild(point);
+    // point.style.left = `${x - 4}px`;
+    // point.style.top = `${y - 4}px`;
+    // cartesianPlane.appendChild(point);
   }
 };
 
@@ -80,9 +83,6 @@ inputForm.addEventListener('submit', getData);
 // Attach click event listener to the Cartesian plane
 // cartesianPlane.addEventListener('click', addPoint); //old version
 cartesianPlane.addEventListener('click', (event) =>{
-
-  // const xa = (event.layerX-yPlane)/gridScale;
-  // const ya = (xPlane-event.layerY)/gridScale;
-  addPixelPoint(event.layerX,event.layerY);
+  addPixelPoint(event.offsetX,event.offsetY);
 
 })
