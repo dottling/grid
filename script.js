@@ -23,29 +23,26 @@ const getData = function (event) {
   let inputX = document.getElementById('inputX').value.split(',');
   let inputY = document.getElementById('inputY').value.split(',');
 
-  const data = {
-    dataX: inputX,
-    dataY: inputY,
-  };
-
-  dataArray.push(data);
-  console.log(dataArray);
-
-
-  // replace this section with new function for adding point to plane //;
+  
+  
+  
+  // reworked this section with new function for adding point to plane //;
   for (let i = 0; i < inputX.length; i++) {
-
-    // const point = document.createElement('div');
-    // point.classList.add('point');
-    const x = parseFloat(inputX[i]);
-    const y = parseFloat(inputY[i]);
-
+    
+    // ||0 is for if there is no matching pair, place the point in the 0 of the axis
+    const x = parseFloat(inputX[i] || 0);
+    const y = parseFloat(inputY[i] || 0);
+    
+    const data = {
+      dataX: x.toFixed(2),
+      dataY: y.toFixed(2),
+    };
+  
+    dataArray.push(data);
+    
     addValuePoint(x,y);
-    // console.log(x, y);
-    // point.style.left = `${x - 4}px`;
-    // point.style.top = `${y - 4}px`;
-    // cartesianPlane.appendChild(point);
   }
+  console.log(dataArray);
 };
 
 
@@ -81,8 +78,22 @@ function addPoint(event) {
 inputForm.addEventListener('submit', getData);
 
 // Attach click event listener to the Cartesian plane
-// cartesianPlane.addEventListener('click', addPoint); //old version
 cartesianPlane.addEventListener('click', (event) =>{
+  const x = event.offsetX;
+  const y = event.offsetY;
+
+  const coord = findCoordinates(x, y);
+  const inputX = coord[0];
+  const inputY = coord[1];
+
+  const data = {
+    dataX: inputX.toFixed(2),
+    dataY: inputY.toFixed(2),
+  };
+
+  dataArray.push(data);
+  console.log(dataArray);
+
   addPixelPoint(event.offsetX,event.offsetY);
 
 })
