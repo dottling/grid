@@ -25,12 +25,17 @@ function getCanvasSize(domWidth,domHeight){
     const canvasX = domWidth - (marginLeft + marginRight);
     const canvasY = domHeight - (marginTop + marginBottom);
 
-    console.log(canvasX,canvasY);
+    // console.log(canvasX,canvasY);
     return [canvasX,canvasY];    
 }
 
 //Receives the RectSize (which includes the border).
 function resizeCanvas(width,height){
+    if(!width || !height){
+        // if no numbers are passed, or if the width and height are zero, cancels everything.
+        return;
+    }
+
     clearCanvas();
     //removes the borders from the size given
     const actualSize = getCanvasSize(width,height);
@@ -44,9 +49,12 @@ function resizeCanvas(width,height){
     drawGrid();
     drawXYPlanes();
     drawDigits();
+    LoadPoints();
 
 }
 
+
+// Maybe add offset ?
 function drawXYPlanes(){
     ctx.beginPath();
     ctx.strokeStyle = "#000"; //hex Black
@@ -61,6 +69,7 @@ function drawXYPlanes(){
     ctx.closePath();
 }
 
+//Fix it to account for different Grid Sizes. Currently only works with the current setup.
 function drawGrid(){
     ctx.beginPath();
     ctx.strokeStyle = "#aaa";
@@ -75,21 +84,21 @@ function drawGrid(){
 
 }
 
+//pick font and position properly
 function drawDigits(){
     ctx.beginPath();
     ctx.fillStyle = "#777";
     for( let i= -gridScale; i<=gridScale ; i++){
-        const pos = findPixel(0,i);
+        const pos = findPixel(i,0);
         //+2 and -2 are offsets, could be replaced with variables;
-        ctx.fillText(`${i}`,pos[1]+2,pos[0]-2);
         ctx.fillText(`${i}`,pos[0]+2,pos[1]-2);
+        ctx.fillText(`${-i}`,pos[1]+2,pos[0]-2);
     }
     ctx.closePath();
     
 }
 
 function addPixelPoint(x,y){
-    console.log("the pixel values for x and y are",x,y);
     ctx.beginPath();
     //arc function utilizes x,y coordinate, followed by Radius(2), then start and end angle;
     ctx.arc(x, y, dotRadius, 0, 2 * Math.PI,false);
@@ -100,7 +109,6 @@ function addPixelPoint(x,y){
 
 function addValuePoint(x,y){
     const coords = findPixel(x,y)
-
     addPixelPoint(coords[0],coords[1]);
 }
 
@@ -122,4 +130,19 @@ function clearCanvas(){
     ctx.beginPath();
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.closePath();
+}
+
+function LoadPoints(){
+    //if there's no data, return.
+    if (!dataArray.length){
+        // console.log("no points to plot");
+        return;
+    }
+    //else, 
+    for (let i=0; i<dataArray.length;i++){
+        const current = dataArray[i];
+        const cX = parseFloat(current.dataX);
+        const cY = parseFloat(current.dataY);
+        addValuePoint(cX,cY);
+    }
 }

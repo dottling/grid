@@ -3,6 +3,11 @@
   --cartesianY: 50rem;
 }
 
+#inputForm{
+  margin: 1rem 0 0 1rem;
+  text-align: center;
+}
+
 .plane-container {
   display: flex;
   justify-content: center;
