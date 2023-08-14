@@ -2,7 +2,7 @@
 
 There are 2 ways to save points to the cartesian plane:
 
-- Click on the cartesian plane where you want to draw a point;
+- Click on the cartesian plane where you want to draw a point;<br>
 - Add the points manually through the form entries:
   - The points must be separated by comma, without any spaces between them. Eg.: `1.6,2.1,3.4`;
   - The same amount of points should be submitted for the X-axis and Y-axis. Eg.: `1.6,2.1,3.4` and `5,7.3,9.8`;
