@@ -82,7 +82,7 @@ function drawDigits(){
         const pos = findPixel(0,i);
         //+2 and -2 are offsets, could be replaced with variables;
         ctx.fillText(`${i}`,pos[1]+2,pos[0]-2);
-        ctx.fillText(`${i}`,pos[0]+2,pos[1]-2);
+        ctx.fillText(`${-i}`,pos[0]+2,pos[1]-2);
     }
     ctx.closePath();
     
