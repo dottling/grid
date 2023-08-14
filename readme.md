@@ -15,6 +15,8 @@ There are 2 ways to save points to the cartesian plane:
 
 Here are some useful commands to help you get started and work with this codebase:
 
+### Adding a point via Console
+`AddValuePoint(x,y)` will convert the given values to pixel and add it to the drawn image.
 ### Git Commands
 
 `git pull origin <branch>` - Gets the latest version of a branch <br>

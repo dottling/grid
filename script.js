@@ -2,10 +2,9 @@ const root = document.querySelector(':root');
 const cartesianPlane = document.getElementById('cartesianPlane');
 const inputForm = document.getElementById('inputForm');
 
-const cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
+let cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
 
-const zeroPlaneX = parseFloat(cartesianPlaneRect.height) / 2;
-const zeroPlaneY = parseFloat(cartesianPlaneRect.width) / 2;
+
 
 // Array that holds all data points that the user provided (both as a click or form)
 // Each entry is an object that holds 2 arrays (dataX and dataY)
@@ -14,13 +13,7 @@ const zeroPlaneY = parseFloat(cartesianPlaneRect.width) / 2;
 const dataArray = [];
 
 // Find coordinates based on their position on the cartesian plane
-const findCoordinates = function (x, y) {
-  xa = parseFloat(((x - zeroPlaneX) / 20).toFixed(2));
-  ya = parseFloat(((zeroPlaneY - y) / 20).toFixed(2));
 
-  coordinates = [xa, ya];
-  return coordinates;
-};
 
 // Add X, Y points to the plane after submitting the form.
 // Also save the points on dataArray
@@ -30,14 +23,8 @@ const getData = function (event) {
   let inputX = document.getElementById('inputX').value.split(',');
   let inputY = document.getElementById('inputY').value.split(',');
 
-  const data = {
-    dataX: inputX,
-    dataY: inputY,
-  };
-
-  dataArray.push(data);
-  console.log(dataArray);
-
+  
+  
   if (inputX.length !== inputY.length) {
     alert('Both inputs must have the same number of values.');
     return;
@@ -49,21 +36,49 @@ const getData = function (event) {
       retun;
     }
   }
+  
+  // reworked this section with new function for adding point to plane //;
+  for (let i = 0; i < inputX.length; i++) {
+    
+    // ||0 is for if there is no matching pair, place the point in the 0 of the axis
+    const x = parseFloat(inputX[i] || 0);
+    const y = parseFloat(inputY[i] || 0);
+    
+    const data = {
+      dataX: x.toFixed(2),
+      dataY: y.toFixed(2),
+    };
+  
+    dataArray.push(data);
+    
+    addValuePoint(x,y);
+  }
+  console.log(dataArray);
+
 
   for (let i = 0; i < inputX.length; i++) {
-    const point = document.createElement('div');
-    point.classList.add('point');
-    let x = parseFloat(inputX[i]) * 20 + zeroPlaneX;
-    let y = -parseFloat(inputY[i]) * 20 + zeroPlaneY;
-    // console.log(x, y);
-    point.style.left = `${x - 4}px`;
-    point.style.top = `${y - 4}px`;
-    cartesianPlane.appendChild(point);
+    
+    // ||0 is for if there is no matching pair, place the point in the 0 of the axis
+    const x = parseFloat(inputX[i] || 0);
+    const y = parseFloat(inputY[i] || 0);
+    
+    const data = {
+      dataX: x.toFixed(2),
+      dataY: y.toFixed(2),
+    };
+  
+    dataArray.push(data);
+    
+    addValuePoint(x,y);
   }
+  console.log(dataArray);
 };
 
+
+// !!!!!! REPLACE WITH ADDING POINT TO CANVAS !!!!!!! //
 // Add a point to the Cartesian plane on click and console.log coordinates
 // Also save the points on dataArray
+/*
 function addPoint(event) {
   const point = document.createElement('div');
   point.classList.add('point');
@@ -87,7 +102,38 @@ function addPoint(event) {
   console.log(`coordinates: (${findCoordinates(x, y)})`);
 }
 
-// Attach click event listener to the Cartesian plane
-cartesianPlane.addEventListener('click', addPoint);
+*/
 // Attach submit event listener to the form button
 inputForm.addEventListener('submit', getData);
+
+// Attach click event listener to the Cartesian plane
+cartesianPlane.addEventListener('click', (event) =>{
+  const x = event.offsetX;
+  const y = event.offsetY;
+
+  const coord = findCoordinates(x, y);
+  const inputX = coord[0];
+  const inputY = coord[1];
+
+  const data = {
+    dataX: inputX.toFixed(2),
+    dataY: inputY.toFixed(2),
+  };
+
+  dataArray.push(data);
+  console.log(dataArray);
+
+  addPixelPoint(event.offsetX,event.offsetY);
+
+})
+
+const windowResize = throttle(()=>{
+  //re acquire the bounding box after the resize
+  cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
+  resizeCanvas(cartesianPlaneRect.width,cartesianPlaneRect.height);
+},250);
+
+window.addEventListener("resize", ()=>{
+  windowResize();
+});
+
