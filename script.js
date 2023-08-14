@@ -98,8 +98,13 @@ cartesianPlane.addEventListener('click', (event) =>{
 
 })
 
-window.addEventListener("resize", ()=>{
+const windowResize = throttle(()=>{
   //re acquire the bounding box after the resize
   cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
   resizeCanvas(cartesianPlaneRect.width,cartesianPlaneRect.height);
+},250);
+
+window.addEventListener("resize", ()=>{
+  windowResize();
 });
+
