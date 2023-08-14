@@ -38,6 +38,18 @@ const getData = function (event) {
   dataArray.push(data);
   console.log(dataArray);
 
+  if (inputX.length !== inputY.length) {
+    alert('Both inputs must have the same number of values.');
+    return;
+  }
+
+  for (let i = 0; i < inputX.length; i++) {
+    if (!inputX[i] || !inputY[i]) {
+      alert('There is at least one entry that is empty.');
+      retun;
+    }
+  }
+
   for (let i = 0; i < inputX.length; i++) {
     const point = document.createElement('div');
     point.classList.add('point');
