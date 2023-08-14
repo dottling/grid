@@ -97,3 +97,9 @@ cartesianPlane.addEventListener('click', (event) =>{
   addPixelPoint(event.offsetX,event.offsetY);
 
 })
+
+window.addEventListener("resize", ()=>{
+  //re acquire the bounding box after the resize
+  cartesianPlaneRect = cartesianPlane.getBoundingClientRect();
+  resizeCanvas(cartesianPlaneRect.width,cartesianPlaneRect.height);
+});
