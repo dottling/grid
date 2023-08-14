@@ -5,8 +5,12 @@ let gridScale = 20;
 
 let dotRadius = 2; // make dot Related to Scale?
 
+//Should the planes always be centered?
 let xPlane = canvas.height/2;
 let yPlane = canvas.width/2;
+
+let xGap = canvas.width/(gridScale*2);
+let yGap = canvas.height/(gridScale*2);
 
 //on Init
 resizeCanvas(cartesianPlaneRect.width,cartesianPlaneRect.height);
@@ -45,6 +49,8 @@ function resizeCanvas(width,height){
     //garantes the x y planes are always centered on canvas
     xPlane = canvas.height/2;
     yPlane = canvas.width/2;
+    xGap = canvas.width/(gridScale*2)
+    yGap = canvas.height/(gridScale*2)
 
     drawGrid();
     drawXYPlanes();
@@ -57,7 +63,7 @@ function resizeCanvas(width,height){
 // Maybe add offset ?
 function drawXYPlanes(){
     ctx.beginPath();
-    ctx.strokeStyle = "#000"; //hex Black
+    ctx.strokeStyle = "#000"; //hex Black // Color of the Main Planes
     
     ctx.moveTo(0,xPlane);
     ctx.lineTo(canvas.width,xPlane);
@@ -69,15 +75,15 @@ function drawXYPlanes(){
     ctx.closePath();
 }
 
-//Fix it to account for different Grid Sizes. Currently only works with the current setup.
+
 function drawGrid(){
     ctx.beginPath();
     ctx.strokeStyle = "#aaa";
     for (let i=1; i < gridScale*2; i++ ){
-        ctx.moveTo(i*gridScale, 0);
-        ctx.lineTo(i*gridScale, canvas.height);
-        ctx.moveTo(0, i*gridScale);
-        ctx.lineTo(canvas.width, i*gridScale);
+        ctx.moveTo(i*xGap, 0);
+        ctx.lineTo(i*xGap, canvas.height);
+        ctx.moveTo(0, i*yGap);
+        ctx.lineTo(canvas.width, i*yGap);
     }
     ctx.stroke();
     ctx.closePath();
@@ -87,7 +93,7 @@ function drawGrid(){
 //pick font and position properly
 function drawDigits(){
     ctx.beginPath();
-    ctx.fillStyle = "#777";
+    ctx.fillStyle = "#777"; //Color for the numbers
     for( let i= -gridScale; i<=gridScale ; i++){
         const pos = findPixel(i,0);
         //+2 and -2 are offsets, could be replaced with variables;
@@ -113,15 +119,15 @@ function addValuePoint(x,y){
 }
 
 function findCoordinates(x, y) {
-    xa = parseFloat(((x - yPlane) / gridScale).toFixed(2));
-    ya = parseFloat(((xPlane - y) / gridScale).toFixed(2));
+    xa = parseFloat(((x - yPlane) / xGap).toFixed(2));
+    ya = parseFloat(((xPlane - y) / yGap).toFixed(2));
     coordinates = [xa, ya];
     return coordinates;
   };
 
 function findPixel (x,y){
-    const xa = x*gridScale + yPlane;
-    const ya = -y*gridScale + xPlane;
+    const xa = x*xGap + yPlane;
+    const ya = -y*yGap + xPlane;
 
     return [xa,ya];
 }
