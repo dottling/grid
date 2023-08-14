@@ -25,8 +25,37 @@ const getData = function (event) {
 
   
   
+  if (inputX.length !== inputY.length) {
+    alert('Both inputs must have the same number of values.');
+    return;
+  }
+
+  for (let i = 0; i < inputX.length; i++) {
+    if (!inputX[i] || !inputY[i]) {
+      alert('There is at least one entry that is empty.');
+      retun;
+    }
+  }
   
   // reworked this section with new function for adding point to plane //;
+  for (let i = 0; i < inputX.length; i++) {
+    
+    // ||0 is for if there is no matching pair, place the point in the 0 of the axis
+    const x = parseFloat(inputX[i] || 0);
+    const y = parseFloat(inputY[i] || 0);
+    
+    const data = {
+      dataX: x.toFixed(2),
+      dataY: y.toFixed(2),
+    };
+  
+    dataArray.push(data);
+    
+    addValuePoint(x,y);
+  }
+  console.log(dataArray);
+
+
   for (let i = 0; i < inputX.length; i++) {
     
     // ||0 is for if there is no matching pair, place the point in the 0 of the axis

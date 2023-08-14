@@ -1,6 +1,15 @@
-## About this Branch
+## The App
 
-This branch aims to redraw the grid utilizing HTML5's Canvas, instead of it's current div based setup.
+There are 2 ways to save points to the cartesian plane:
+
+- Click on the cartesian plane where you want to draw a point;
+- Add the points manually through the form entries:
+  - The points must be separated by comma, without any spaces between them. Eg.: `1.6,2.1,3.4`;
+  - The same amount of points should be submitted for the X-axis and Y-axis. Eg.: `1.6,2.1,3.4` and `5,7.3,9.8`;
+  - In the example above, the following pairs will be drawn:
+    - `(1.6, 5)`
+    - `(2.1, 7.3)`
+    - `(3.4, 9.8)`
 
 ## Useful Commands
 
@@ -8,6 +17,12 @@ Here are some useful commands to help you get started and work with this codebas
 
 ### Adding a point via Console
 `AddValuePoint(x,y)` will convert the given values to pixel and add it to the drawn image.
+### Git Commands
+
+`git pull origin <branch>` - Gets the latest version of a branch <br>
+`git add .` - Adds all files to Staged <br>
+`git commit -m "<message>` - Commits all staged files with a commit message <br>
+`git push` - Uploads the code to Remote <br>
 
 ### Accessing dataArray
 
